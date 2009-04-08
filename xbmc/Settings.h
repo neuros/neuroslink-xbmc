@@ -27,8 +27,8 @@
 #define DEFAULT_VSYNC       VSYNC_DISABLED
 #define DEFAULT_THUMB_SIZE  256
 #else  // MID
-#define DEFAULT_SKIN        "PM3.HD"
 #define DEFAULT_VSYNC       VSYNC_ALWAYS
+#define DEFAULT_SKIN        "MediaStream"
 #define DEFAULT_THUMB_SIZE  512
 #endif // MID
 
