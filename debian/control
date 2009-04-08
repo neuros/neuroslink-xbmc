@@ -17,7 +17,7 @@ Standards-Version: 3.8.0
 Package: xbmc
 Architecture: i386 amd64
 Depends: xbmc-common (= ${binary:Version}),
-         xbmc-skin-pm3-hd (= ${binary:Version}),
+         xbmc-skin-mediastream,
          xbmc-web-pm3 (= ${binary:Version})
 Suggests: xbmc-third-parties
 Description: The Full XBMC meta package
