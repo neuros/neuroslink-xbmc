@@ -496,8 +496,6 @@ void CGUISettings::Initialize()
   AddGroup(6, 705);
   AddCategory(6, "network", 705);
 
-  if (g_application.IsStandAlone())
-  {
 #ifndef __APPLE__
     AddString(1, "network.interface",775,"", SPIN_CONTROL_TEXT);
     AddInt(2, "network.assignment", 715, NETWORK_DHCP, NETWORK_DHCP, 1, NETWORK_DISABLED, SPIN_CONTROL_TEXT);
@@ -514,7 +512,7 @@ void CGUISettings::Initialize()
 #endif
     AddSeparator(12, "network.sep1");
 #endif
-  }
+
   AddBool(13, "network.usehttpproxy", 708, false);
   AddString(14, "network.httpproxyserver", 706, "", EDIT_CONTROL_INPUT);
   AddString(15, "network.httpproxyport", 707, "8080", EDIT_CONTROL_NUMBER_INPUT, false, 707);

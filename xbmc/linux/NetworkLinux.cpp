@@ -346,18 +346,12 @@ std::vector<CStdString> CNetworkLinux::GetNameServers(void)
 
 void CNetworkLinux::SetNameServers(std::vector<CStdString> nameServers)
 {
-   FILE* fp = fopen("/etc/resolv.conf", "w");
-   if (fp != NULL)
+   std::string cmd;
+   system("echo -n '' | sudo tee /etc/resolv.conf"); // erase the file
+   for (unsigned int i = 0; i < nameServers.size(); i++)
    {
-      for (unsigned int i = 0; i < nameServers.size(); i++)
-      {
-         fprintf(fp, "nameserver %s\n", nameServers[i].c_str());
-      }
-      fclose(fp);
-   }
-   else
-   {
-      // TODO:
+      cmd = "echo 'nameserver " + nameServers[i] + "' | sudo tee -a /etc/resolv.conf";
+      system(cmd.c_str());
    }
 }
 
@@ -711,20 +705,17 @@ void CNetworkInterfaceLinux::SetSettings(NetworkAssignment& assignment, CStdStri
    fclose(fw);
 
    // Rename the file
-   if (rename("/tmp/interfaces.temp", "/etc/network/interfaces") < 0)
-   {
-      // TODO
-      return;
-   }
+   // NEUROS: Since on the Link we have sudo setup with no password, this will always work
+   system("sudo cp /tmp/interfaces.temp /etc/network/interfaces");
 
    CLog::Log(LOGINFO, "Stopping interface %s", GetName().c_str());
-   std::string cmd = "/sbin/ifdown " + GetName();
+   std::string cmd = "sudo /sbin/ifdown " + GetName();
    system(cmd.c_str());
 
    if (assignment != NETWORK_DISABLED)
    {
       CLog::Log(LOGINFO, "Starting interface %s", GetName().c_str());
-      cmd = "/sbin/ifup " + GetName();
+      cmd = "sudo /sbin/ifup " + GetName();
       system(cmd.c_str());
    }
 #endif

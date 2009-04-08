@@ -1109,7 +1109,7 @@ void CGUIWindowSettingsCategory::UpdateSettings()
     else if (strSetting.Equals("network.ipaddress") || strSetting.Equals("network.subnet") || strSetting.Equals("network.gateway") || strSetting.Equals("network.dns"))
     {
 #ifdef _LINUX
-      bool enabled = (geteuid() == 0);
+      bool enabled = true;
 #else
       bool enabled = false;
 #endif
@@ -1126,7 +1126,7 @@ void CGUIWindowSettingsCategory::UpdateSettings()
       CGUISpinControlEx* pControl1 = (CGUISpinControlEx *)GetControl(GetSetting("network.assignment")->GetID());
 #ifdef HAS_LINUX_NETWORK
       if (pControl1)
-         pControl1->SetEnabled(geteuid() == 0);
+         pControl1->SetEnabled(true);
 #endif
     }
     else if (strSetting.Equals("network.essid") || strSetting.Equals("network.enc") || strSetting.Equals("network.key"))
@@ -1138,7 +1138,7 @@ void CGUIWindowSettingsCategory::UpdateSettings()
       bool bIsWireless = iface->IsWireless();
 
 #ifdef HAS_LINUX_NETWORK
-      bool enabled = bIsWireless && (geteuid() == 0);
+      bool enabled = bIsWireless;
 #else
       bool enabled = bIsWireless;
 #endif
@@ -1173,7 +1173,7 @@ void CGUIWindowSettingsCategory::UpdateSettings()
     else if (strSetting.Equals("network.save"))
     {
       CGUIButtonControl *pControl = (CGUIButtonControl *)GetControl(pSettingControl->GetID());
-      pControl->SetEnabled(geteuid() == 0);
+      pControl->SetEnabled(true);
     }
 #endif
     else if (strSetting.Equals("postprocessing.verticaldeblocklevel"))
@@ -2545,9 +2545,6 @@ void CGUIWindowSettingsCategory::Render()
 
 void CGUIWindowSettingsCategory::CheckNetworkSettings()
 {
-  if (!g_application.IsStandAlone())
-    return;
-
   // check if our network needs restarting (requires a reset, so check well!)
   if (m_iNetworkAssignment == -1)
   {
@@ -3577,8 +3574,6 @@ void CGUIWindowSettingsCategory::FillInStartupWindow(CSetting *pSetting)
 
 void CGUIWindowSettingsCategory::OnInitWindow()
 {
-  if (g_application.IsStandAlone())
-  {
 #ifndef __APPLE__
     m_iNetworkAssignment = g_guiSettings.GetInt("network.assignment");
     m_strNetworkIPAddress = g_guiSettings.GetString("network.ipaddress");
@@ -3586,7 +3581,7 @@ void CGUIWindowSettingsCategory::OnInitWindow()
     m_strNetworkGateway = g_guiSettings.GetString("network.gateway");
     m_strNetworkDNS = g_guiSettings.GetString("network.dns");
 #endif
-  }
+
   m_strOldTrackFormat = g_guiSettings.GetString("musicfiles.trackformat");
   m_strOldTrackFormatRight = g_guiSettings.GetString("musicfiles.trackformatright");
   m_NewResolution = INVALID;
@@ -3769,9 +3764,6 @@ void CGUIWindowSettingsCategory::FillInAudioDevices(CSetting* pSetting)
 
 void CGUIWindowSettingsCategory::NetworkInterfaceChanged(void)
 {
-  if (!g_application.IsStandAlone())
-    return;
-
 #ifdef __APPLE__
   return;
 #endif
