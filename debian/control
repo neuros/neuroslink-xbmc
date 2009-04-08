@@ -1,0 +1,133 @@
+Source: xbmc
+Section: universe/misc
+Priority: extra
+Maintainer: Ouattara Oumar Aziz (alias wattazoum) <wattazoum@gmail.com>
+Build-Depends: debhelper (>= 5), python-support, autotools-dev, libdbus-1-dev, libhal-dev, libhal-storage-dev, 
+  make, g++-4.1, gcc-4.1, libsdl1.2-dev, libsdl-image1.2-dev, libsdl-gfx1.2-dev, libsdl-mixer1.2-dev, 
+  libsdl-sound1.2-dev, libbz2-dev, libcdio-dev, libfribidi-dev, liblzo-dev,liblzo2-dev , libfreetype6-dev, unzip,
+  libsqlite3-dev, libogg-dev, libsmbclient-dev, libasound2-dev, python2.4-dev, python2.4, python-sqlite, cmake, 
+  libglew1.5-dev,
+  libcurl4-openssl-dev,
+  gawk, x11proto-xinerama-dev, libxinerama-dev, libxrandr-dev, libxrender-dev, 
+  libmms-dev, pmount, libmad0-dev, libtre-dev, libvorbis-dev, libmysqlclient15-dev, libpcre3-dev, libbluetooth-dev, 
+  libfontconfig-dev, libcwiid1-dev, libboost-dev, libtool, zip, nasm, autoconf, libfaac-dev, automake, libjasper-dev,
+  libxt-dev, libxmu-dev, gperf, libenca-dev, libjpeg62-dev, libpng12-dev, dpatch, libpulse-dev, nvidia-180-libvdpau-dev
+Standards-Version: 3.8.0
+
+Package: xbmc
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version}),
+         xbmc-skin-pm3-hd (= ${binary:Version}),
+         xbmc-web-pm3 (= ${binary:Version})
+Suggests: xbmc-third-parties
+Description: The Full XBMC meta package
+ XBMC is a free and open source software media player 
+ and entertainment hub distributed under the GNU General Public Licence.
+ .
+ Currently  XBMC can be used to play/view most common 
+ video/audio/picture formats such as MPEG-1/2/4, DivX, XviD, MP3, AAC, 
+ JPG, GIF plus many more less known formats
+ 
+Package: xbmc-common
+Architecture: i386 amd64
+Depends: pmount, libdbus-1-3, libhal1, libhal-storage1, libsdl1.2debian, libsdl-gfx1.2-4, libsdl-image1.2, 
+  libsdl-mixer1.2, libsdl-sound1.2, libfribidi0, libcdio7, liblzo1, liblzo2-2, libfreetype6, libbz2-1.0,
+  libsqlite3-0, python2.4, python-sqlite, libglew1.5, gawk, libsmbclient, libasound2, libmms0, libcurl3, 
+  libxinerama1, x11-common, xserver-xorg-core, libxrandr2, libxrender1, libmad0, libtre4, libvorbis0a, 
+  libpcre3, libjasper1, libfontconfig1, hal, libenca0, libfaac0, libpulse0,
+  libmysqlclient15off,
+  libcurl4-openssl-dev,
+  mesa-utils,
+  libavahi-client3
+Suggests: xbmc-test-helper
+Recommends: python-qt3
+Description: XBMC common package
+ This package contains all the datas needed to have a working XBMC
+
+Package: xbmc-common-dbg
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Description: XBMC Debug symbols
+ This package contains debugging symbols for xbmc
+
+Package: xbmc-scripts-example
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Description: XBMC default scripts package
+ Scripts shipped with XBMC for user conveniance
+
+Package: xbmc-skin-pm3
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Replaces: xbmc-skin-default
+Conflicts: xbmc-skin-default
+Description: XBMC Project Mahem III skin package
+ The XBMC PM3 Skin package (aka Project Mahem III).
+
+Package: xbmc-skin-pm3-hd
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Description: XBMC PM3 HD skin package
+ The XBMC PM3 HD Skin package (aka Project Mahem III High Definition).
+
+Package: xbmc-web-pm3
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Description: XBMC Webserver Project Mahem III skin package
+ The PM3 (aka Project Mahem III) Skin for the XBMC web server .
+
+Package: xbmc-web-pm
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Conflicts: xbmc-web-pm3
+Description: XBMC Webserver Project Mahem skin package
+ The PM (aka Project Mahem) Skin for the XBMC web server .
+
+Package: xbmc-web-eflexweb
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Conflicts: xbmc-web-pm3, xbmc-web-pm, xbmc-web-iphone-tlrobinson
+Description: XBMC Webserver Eflex web skin package
+ The XBMC Webserver Eflex web Skin for the XBMC web server .
+
+Package: xbmc-web-iphone-tlrobinson
+Architecture: i386 amd64
+Depends: xbmc-common (= ${binary:Version})
+Description: XBMC Webserver Iphone skin package
+ iPhone's web browser (based on WebKit) can display full interactive webpages, 
+ and Xbox Media Center (XBMC) contains a simple web server that can store web 
+ page and react to various commands like pause, play, volume control and many 
+ more. The remote is written entirely in JavaScript, HTML, and CSS, and makes
+ use of iUI, a framework for iPhone-like interfaces on web apps, written by 
+ Joe Hewitt.
+
+Package: xbmc-eventclients-wiiremote
+Architecture: i386 amd64
+Depends: xbmc-eventclients-common (= ${binary:Version}), libcwiid1
+Description: XBMC Event Client for WII Remote support
+ The Wii Remote client package for XBMC.
+
+Package: xbmc-eventclients-common
+Architecture: i386 amd64
+Depends: libbluetooth3
+Description: XBMC Event Client Common package
+ The common package for XBMC Event Client.
+
+Package: xbmc-eventclients-dev
+Architecture: i386 amd64
+Depends: xbmc-eventclients-common (= ${binary:Version})
+Description: XBMC Event Client Dev package
+ The Development package for XBMC Event Client.
+
+Package: xbmc-eventclients-j2me
+Architecture: i386 amd64
+Depends: xbmc-eventclients-common (= ${binary:Version}), python-bluez
+Description: XBMC Event Client J2ME package
+ The J2ME package for XBMC Event Client. This is meant to provide a server that communicate with a mobile tool supporting Java ME.
+
+Package: xbmc-eventclients-ps3
+Architecture: i386 amd64
+Depends: xbmc-eventclients-common (= ${binary:Version})
+Description: XBMC Event Client PS3 package
+ The PS3 package for XBMC Event Client.
+

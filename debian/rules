@@ -1,0 +1,135 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+#
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+#
+# Modified to make a template file for a multi-binary package with separated
+# build-arch and build-indep targets  by Bill Allombert 2001
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+#get the svnversion if the file exists
+ifneq "$(shell cat debian/svnrevision)" ""
+SVNVERSION ?= $(shell cat debian/svnrevision)
+endif
+
+config.status: patch configure
+	dh_testdir
+	# Add here commands to configure the package.
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --enable-vdpau --enable-avahi SVN_REV="$(SVNVERSION)"
+
+#Architecture 
+build: build-arch
+
+build-arch: build-arch-stamp
+build-arch-stamp:  config.status
+
+	# Add here commands to compile the arch part of the package.
+	$(MAKE)
+	touch $@
+
+build-indep: build-indep-stamp
+build-indep-stamp:  config.status
+
+	# Add here commands to compile the indep part of the package.
+	#$(MAKE) doc
+	touch $@
+
+clean: clean-patched unpatch
+clean-patched:
+	dh_testdir
+	dh_testroot
+	rm -f build-arch-stamp build-indep-stamp 
+
+	# Add here commands to clean up after the build process.
+	#$(MAKE) distclean
+	rm -f config.sub config.guess
+
+	dh_clean 
+
+patch: patch-stamp
+patch-stamp:
+	dpatch apply-all
+	dpatch cat-all >patch-stamp
+
+unpatch:
+	dpatch deapply-all
+	rm -rf patch-stamp debian/patched
+
+
+install: install-indep install-arch
+install-indep:
+
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_clean -k -s 
+	dh_installdirs -s
+
+	# Add here commands to install the arch part of the package into 
+	# debian/tmp/usr/share/xbmc
+	make install prefix=$(CURDIR)/debian/tmp/usr/
+	make eventclients prefix=$(CURDIR)/debian/tmp/usr/ installdir=/usr WII_EXTRA_OPTS=-DCWIID_OLD
+	mkdir -p $(CURDIR)/debian/tmp/usr/share/applications $(CURDIR)/debian/tmp/usr/share/pixmaps
+	cp -a $(CURDIR)/tools/Linux/xbmc.png $(CURDIR)/debian/tmp/usr/share/pixmaps/
+	cp -a $(CURDIR)/tools/Linux/xbmc.desktop $(CURDIR)/debian/tmp/usr/share/applications/
+
+	dh_install -s --sourcedir=$(CURDIR)/debian/tmp
+	
+	# XBMC WEB EFLEXWEB
+	mkdir -p $(CURDIR)/debian/xbmc-web-eflexweb/usr/share/xbmc/web
+	unzip -oq $(CURDIR)/web/WebInterfaceXBMC-0.17.zip -d $(CURDIR)/debian/xbmc-web-eflexweb/usr/share/xbmc/web
+	# XBMC WEB PM
+	mkdir -p $(CURDIR)/debian/xbmc-web-pm/usr/share/xbmc/web
+	unzip -oq $(CURDIR)/web/Project_Mayhem_webserver_V1.1.2.zip -d $(CURDIR)/debian/xbmc-web-pm/usr/share/xbmc/web
+	# XBMC WEB Iphone
+	mkdir -p $(CURDIR)/debian/xbmc-web-iphone-tlrobinson/usr/share/xbmc/web/iphone
+	unzip -oq $(CURDIR)/web/xbmciphone-0.1.zip -d $(CURDIR)/debian/xbmc-web-iphone-tlrobinson/usr/share/xbmc/web
+	mkdir -p $(CURDIR)/debian/xbmc-web-iphone-tlrobinson/usr/share/doc/xbmc-web-iphone-tlrobinson/ 
+	mv $(CURDIR)/debian/xbmc-web-iphone-tlrobinson/usr/share/xbmc/web/README $(CURDIR)/debian/xbmc-web-iphone-tlrobinson/usr/share/doc/xbmc-web-iphone-tlrobinson/
+	
+# Must not depend on anything. This is to be called by
+# binary-arch/binary-indep
+# in another 'make' thread.
+binary-common:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs 
+	dh_installdocs
+	dh_installexamples
+	dh_pysupport
+	dh_link
+#	dh_strip -X.so -X.a --dbg-package=xbmc-common-dbg
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+# Build architecture independant packages using the common target.
+binary-indep: build-indep install-indep
+	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
+	
+# Build architecture dependant packages using the common target.
+binary-arch: build-arch install-arch
+	$(MAKE) -f debian/rules DH_OPTIONS=-s binary-common
+
+binary: binary-arch binary-indep
+.PHONY: build clean binary-indep binary-arch binary install install-indep install-arch 

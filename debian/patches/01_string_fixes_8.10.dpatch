@@ -1,0 +1,83 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01_string_fixes_8.10.dpatch by Ouattara Oumar Aziz (alias wattazoum) <wattazoum@gmail.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: fixes some version strings in atlantis
+
+@DPATCH@
+
+Index: XBMC/xbmc/win32/XBMC_PC.rc
+===================================================================
+--- XBMC/xbmc/win32/XBMC_PC.rc	(révision 16149)
++++ XBMC/xbmc/win32/XBMC_PC.rc	(copie de travail)
+@@ -53,8 +53,8 @@
+ //
+ 
+ VS_VERSION_INFO VERSIONINFO
+- FILEVERSION 2,1,0,0
+- PRODUCTVERSION 2,1,0,0
++ FILEVERSION 0,8,1,0
++ PRODUCTVERSION 0,8,1,0
+  FILEFLAGSMASK 0x3fL
+ #ifdef _DEBUG
+  FILEFLAGS 0x1L
+@@ -71,12 +71,12 @@
+         BEGIN
+             VALUE "CompanyName", "Team XBMC"
+             VALUE "FileDescription", "XBMC "
+-            VALUE "FileVersion", "pre-2.1"
++            VALUE "FileVersion", "8.10"
+             VALUE "InternalName", "XBMC.exe"
+             VALUE "LegalCopyright", "CopyRight (c) Team XBMC.  All rights reserved."
+             VALUE "OriginalFilename", "XBMC.exe"
+             VALUE "ProductName", "XBMC for Windows"
+-            VALUE "ProductVersion", "pre-2.1"
++            VALUE "ProductVersion", "8.10"
+         END
+     END
+     BLOCK "VarFileInfo"
+Index: XBMC/xbmc/FileSystem/cddb.cpp
+===================================================================
+--- XBMC/xbmc/FileSystem/cddb.cpp	(révision 16149)
++++ XBMC/xbmc/FileSystem/cddb.cpp	(copie de travail)
+@@ -1206,9 +1206,9 @@
+ 
+   //##########################################################
+   // Send the Hello message
+-  if ( ! Send("cddb hello xbox xbox XboxMediaCenter pre-2.1"))
++  if ( ! Send("cddb hello xbmc xbmc XBMC 8.10"))
+   {
+-    CLog::Log(LOGERROR, "Xcddb::queryCDinfo Error sending \"%s\"", "cddb hello xbox xbox XboxMediaCenter pre-2.1");
++    CLog::Log(LOGERROR, "Xcddb::queryCDinfo Error sending \"%s\"", "cddb hello xbmc xbmc XBMC 8.10");
+     m_lastError = E_NETWORK_ERROR_SEND;
+     return false;
+   }
+Index: XBMC/xbmc/FileSystem/FileCurl.cpp
+===================================================================
+--- XBMC/xbmc/FileSystem/FileCurl.cpp	(révision 16149)
++++ XBMC/xbmc/FileSystem/FileCurl.cpp	(copie de travail)
+@@ -389,7 +389,7 @@
+   if (m_userAgent.length() > 0)
+     g_curlInterface.easy_setopt(h, CURLOPT_USERAGENT, m_userAgent.c_str());
+   else /* set some default agent as shoutcast doesn't return proper stuff otherwise */
+-    g_curlInterface.easy_setopt(h, CURLOPT_USERAGENT, "XBMC/pre-2.1 (compatible; MSIE 6.0; Windows NT 5.1; WinampMPEG/5.09)");
++    g_curlInterface.easy_setopt(h, CURLOPT_USERAGENT, "XBMC/8.10 (compatible; MSIE 6.0; Windows NT 5.1; WinampMPEG/5.09)");
+   
+   if (m_useOldHttpVersion)
+     g_curlInterface.easy_setopt(h, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+Index: XBMC/xbmc/utils/GUIInfoManager.h
+===================================================================
+--- XBMC/xbmc/utils/GUIInfoManager.h	(révision 16149)
++++ XBMC/xbmc/utils/GUIInfoManager.h	(copie de travail)
+@@ -393,9 +393,9 @@
+ #define BUTTON_SCROLLER_HAS_ICON    30001
+ 
+ #ifdef SVN_REV
+-#define VERSION_STRING "pre-8.10 SVN:"SVN_REV
++#define VERSION_STRING "8.10 SVN:"SVN_REV
+ #else
+-#define VERSION_STRING "pre-8.10"
++#define VERSION_STRING "8.10 - ATLANTIS"
+ #endif
+ 
+ #define LISTITEM_START              35000
