@@ -477,10 +477,10 @@ void CGraphicContext::GetAllowedResolutions(vector<RESOLUTION> &res, bool bAllow
       res.push_back(HDTV_1080i);
   }
 #ifdef HAS_SDL
-  if (g_videoConfig.GetNumberOfResolutions())
-  {
-    res.push_back(CUSTOM);
-  }
+//   if (g_videoConfig.GetNumberOfResolutions())
+//   {
+//     res.push_back(CUSTOM);
+//   }
   res.push_back(DESKTOP);
 #endif
 }
