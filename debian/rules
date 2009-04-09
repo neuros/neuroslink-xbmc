@@ -34,7 +34,7 @@ endif
 ifneq "$(wildcard /usr/share/misc/config.guess)" ""
 	cp -f /usr/share/misc/config.guess config.guess
 endif
-	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --disable-vdpau --enable-avahi --disable-debug --disable-pulse --disable-xrandr SVN_REV="$(SVNVERSION)"
+#	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --disable-vdpau --enable-avahi --disable-debug --disable-pulse --disable-xrandr SVN_REV="$(SVNVERSION)"
 
 #Architecture 
 build: build-arch
@@ -43,7 +43,7 @@ build-arch: build-arch-stamp
 build-arch-stamp:  config.status
 
 	# Add here commands to compile the arch part of the package.
-	$(MAKE)
+	$(MAKE) CXX="ccache g++" CC="ccache gcc"
 	touch $@
 
 build-indep: build-indep-stamp

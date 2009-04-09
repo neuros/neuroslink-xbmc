@@ -2574,7 +2574,9 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
 #if defined(_LINUX) && !defined(__APPLE__)
   else if (execute.Equals("system.exec"))
   {
+    g_application.ShowHide(false);
     system(strParameterCaseIntact.c_str());
+    g_application.ShowHide(true);
   }
 #elif defined(_WIN32PC)
   else if (execute.Equals("system.exec"))

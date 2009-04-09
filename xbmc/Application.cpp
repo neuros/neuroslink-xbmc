@@ -310,6 +310,8 @@ CApplication::CApplication(void) : m_ctrDpad(220, 220), m_itemCurrentFile(new CF
   //true while we in IsPaused mode! Workaround for OnPaused, which must be add. after v2.0
   m_bIsPaused = false;
 
+  m_bWasFullScreenBeforeHide = false;
+
   /* for now allways keep this around */
 #ifdef HAS_KARAOKE
   m_pKaraokeMgr = new CKaraokeLyricsManager();
@@ -5500,6 +5502,19 @@ bool CApplication::Minimize()
 #else
   return false;
 #endif
+}
+
+void CApplication::ShowHide(bool show)
+{
+    if (!show)
+    {
+        m_bWasFullScreenBeforeHide = g_graphicsContext.IsFullScreenRoot();
+        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
+    }
+    else
+    {
+        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
+    }
 }
 
 EPLAYERCORES CApplication::GetCurrentPlayer()

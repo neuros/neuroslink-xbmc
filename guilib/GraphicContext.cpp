@@ -1478,6 +1478,11 @@ void CGraphicContext::EndPaint(CSurface *dest, bool lock)
 #endif
 }
 
+bool CGraphicContext::IsFullScreenRoot () const
+{
+  return m_bFullScreenRoot;
+}
+
 bool CGraphicContext::ToggleFullScreenRoot ()
 {
 #ifndef _WIN32PC

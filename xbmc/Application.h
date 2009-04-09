@@ -206,6 +206,8 @@ public:
   inline bool IsInScreenSaver() { return m_bScreenSave; };
   int m_iScreenSaveLock; // spiff: are we checking for a lock? if so, ignore the screensaver state, if -1 we have failed to input locks
 
+  bool m_bWasFullScreenBeforeHide;
+
   DWORD m_dwSkinTime;
   bool m_bIsPaused;
   bool m_bPlaybackStarting;
@@ -251,6 +253,7 @@ public:
   }
 
   bool IsPresentFrame();
+  void ShowHide(bool show);
 
   bool m_restartLirc;
   bool m_restartLCD;
