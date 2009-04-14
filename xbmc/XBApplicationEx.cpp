@@ -570,6 +570,21 @@ bool CXBApplicationEx::ProcessWin32Shortcuts(SDL_Event& event)
 
 bool CXBApplicationEx::ProcessLinuxShortcuts(SDL_Event& event)
 {
+  static bool alt = false;
+  static CAction action;
+
+  alt = !!(SDL_GetModState() & (KMOD_LALT  | KMOD_RALT));
+
+  if (alt && event.key.type == SDL_KEYDOWN)
+  {
+    switch(event.key.keysym.sym)
+    {
+    case SDLK_TAB:  // ALT+TAB to minimize/hide
+      g_application.ShowHide(false);
+      return true;
+    }
+  }
+
   return false;
 }
 
