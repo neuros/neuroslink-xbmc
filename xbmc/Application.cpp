@@ -5504,19 +5504,6 @@ bool CApplication::Minimize()
 #endif
 }
 
-void CApplication::ShowHide(bool show)
-{
-    if (!show)
-    {
-        m_bWasFullScreenBeforeHide = g_graphicsContext.IsFullScreenRoot();
-        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
-    }
-    else
-    {
-        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
-    }
-}
-
 EPLAYERCORES CApplication::GetCurrentPlayer()
 {
   return m_eCurrentPlayer;

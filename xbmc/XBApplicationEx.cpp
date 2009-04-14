@@ -437,6 +437,7 @@ void CXBApplicationEx::ReadInput()
       if( event.active.state & SDL_APPACTIVE )
       {
         m_AppActive = event.active.gain != 0;
+        if (m_AppActive) ShowHide(true);
       }
       if (event.active.state & SDL_APPINPUTFOCUS)
       {
@@ -506,6 +507,20 @@ void CXBApplicationEx::ReadInput()
   m_DefaultGamepad.fX2 = DeadZone(m_DefaultGamepad.fX2);
   m_DefaultGamepad.fY2 = DeadZone(m_DefaultGamepad.fY2);
 #endif
+}
+
+void CXBApplicationEx::ShowHide(bool show)
+{
+    if (!show)
+    {
+        m_bWasFullScreenBeforeHide = g_graphicsContext.IsFullScreenRoot();
+        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
+        SDL_WM_IconifyWindow();
+    }
+    else
+    {
+        if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
+    }
 }
 
 void CXBApplicationEx::Process()
