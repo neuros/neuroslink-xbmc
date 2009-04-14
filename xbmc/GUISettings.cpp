@@ -631,7 +631,6 @@ void CGUISettings::Initialize()
 
   AddString(3, "videoscreen.guicalibration",214,"", BUTTON_CONTROL_STANDARD);
   AddString(4, "videoscreen.testpattern",226,"", BUTTON_CONTROL_STANDARD);
-  AddInt(6, "videoscreen.vsync", 13105, DEFAULT_VSYNC, VSYNC_DISABLED, 1, VSYNC_DRIVER, SPIN_CONTROL_TEXT);
 
   AddCategory(7, "filelists", 14018);
   AddBool(1, "filelists.hideparentdiritems", 13306, false);
@@ -997,7 +996,7 @@ void CGUISettings::LoadXML(TiXmlElement *pRootElement, bool hideSettings /* = fa
   CLog::Log(LOGINFO, "DTS pass through is %s", GetBool("audiooutput.dtspassthrough") ? "enabled" : "disabled");
 
   g_guiSettings.m_LookAndFeelResolution = (RESOLUTION)GetInt("videoscreen.resolution");
-  g_videoConfig.SetVSyncMode((VSYNC)GetInt("videoscreen.vsync"));
+  g_videoConfig.SetVSyncMode(VSYNC_DISABLED);
   CLog::Log(LOGNOTICE, "Checking resolution %i", g_guiSettings.m_LookAndFeelResolution);
   g_videoConfig.PrintInfo();
   if (

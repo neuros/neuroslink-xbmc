@@ -671,10 +671,6 @@ void CGUIWindowSettingsCategory::CreateSettings()
     {
       FillInResolutions(pSetting, false);
     }
-    else if (strSetting.Equals("videoscreen.vsync"))
-    {
-      FillInVSyncs(pSetting);
-    }
     else if (strSetting.Equals("lookandfeel.skintheme"))
     {
       FillInSkinThemes(pSetting);
@@ -1961,13 +1957,6 @@ void CGUIWindowSettingsCategory::OnSettingChanged(CBaseSettingControl *pSettingC
     {
       m_NewResolution = INVALID;
     }
-  }
-  else if (strSetting.Equals("videoscreen.vsync"))
-  {
-    int iControlID = pSettingControl->GetID();
-    CGUIMessage msg(GUI_MSG_ITEM_SELECTED, GetID(), iControlID);
-    g_graphicsContext.SendMessage(msg);
-    g_videoConfig.SetVSyncMode((VSYNC)msg.GetParam1());
   }
   else if (strSetting.Equals("locale.language"))
   { // new language chosen...
