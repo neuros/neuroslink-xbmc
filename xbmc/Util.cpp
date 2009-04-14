@@ -2286,6 +2286,7 @@ const BUILT_IN commands[] = {
   { "Suspend",                    false,  "Suspends the system" },
   { "RestartApp",                 false,  "Restart XBMC" },
   { "Minimize",                   false,  "Minimize XBMC" },
+  { "HideApp",                    false,  "Minimize and Hide XBMC" },
   { "Credits",                    false,  "Run XBMCs Credits" },
   { "Reset",                      false,  "Reset the xbox (warm reboot)" },
   { "Mastermode",                 false,  "Control master mode" },
@@ -2440,6 +2441,10 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
   else if (execute.Equals("minimize"))
   {
     g_application.getApplicationMessenger().Minimize();
+  }
+  else if (execute.Equals("hideapp"))
+  {
+    g_application.ShowHide(false);
   }
   else if (execute.Equals("loadprofile") && g_settings.m_vecProfiles[0].getLockMode() == LOCK_MODE_EVERYONE)
   {

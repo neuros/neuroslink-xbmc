@@ -410,6 +410,10 @@ case TMSG_POWERDOWN:
       g_application.Minimize();
       break;
 
+    case TMSG_HIDEAPP:
+      g_application.ShowHide(false);
+      break;
+
     case TMSG_HTTPAPI:
     {
 #ifdef HAS_WEB_SERVER
@@ -739,6 +743,12 @@ void CApplicationMessenger::SwitchToFullscreen()
 void CApplicationMessenger::Minimize()
 {
   ThreadMessage tMsg = {TMSG_MINIMIZE};
+  SendMessage(tMsg, false);
+}
+
+void CApplicationMessenger::HideApp()
+{
+  ThreadMessage tMsg = {TMSG_HIDEAPP};
   SendMessage(tMsg, false);
 }
 
