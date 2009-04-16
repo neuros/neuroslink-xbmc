@@ -25,6 +25,7 @@ stamp-*
 debian/xbmc*
 debian/files
 debian/tmp
+debian/changelog
 
 # Generated files
 
@@ -69,6 +70,7 @@ xbmc/cores/dvdplayer/Codecs/libmad/mad.h
 xbmc/cores/dvdplayer/Codecs/libmpeg2/src/corrupt_mpeg2
 xbmc/cores/dvdplayer/Codecs/libmpeg2/src/extract_mpeg2
 xbmc/cores/dvdplayer/Codecs/libmpeg2/src/mpeg2dec
+xbmc/cores/paplayer/vgmstream/src/meta/mus_acm.c.bak
 xbmc/cores/paplayer/MPCCodec/include/mpcdec/config_types.h
 xbmc/cores/paplayer/MPCCodec/src/sample
 xbmc/cores/paplayer/ModuleCodec/examples/dumb2wav
