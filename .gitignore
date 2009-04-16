@@ -25,7 +25,6 @@ stamp-*
 debian/xbmc*
 debian/files
 debian/tmp
-debian/changelog
 
 # Generated files
 
