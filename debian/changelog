@@ -1,3 +1,19 @@
+xbmc (9.04~alpha1svn19325-neuros1) intrepid; urgency=low
+
+  * Make auto-thumb default and shorten the config item text 
+  * Force vsync to always disabled, remove setting from panel entirely.
+  * Un-fullscreen and minimize xbmc on ALT+TAB 
+  * Disable by default the rss feed at bottom of screen
+  * Un-fullscreen and minimize when launching another app. 
+  * Restore fullscreen when xbmc restored from taskbar, if was fullscreen previously.
+  * Remove custom resolutions from the resolutions list.
+  * Use MediaSteam as default skin instead of PM3, and depend the package on MediaStream.
+  * Disable some config options (debug, nvidia vdpau, pulse audio, xrandr)
+  * Force network config panel to always appear.
+  * Use Link's passwordless sudo to config network as non-root.
+
+ --  Ugo Riboni <nerochiaro@neurostechnology.com>  Wed, 15 Apr 2009 03:14:33 +0200
+
 xbmc (9.04~alpha1svn19325-intrepid1) intrepid; urgency=low
 
   * Build of 9.04~alpha1svn19325
