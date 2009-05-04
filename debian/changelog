@@ -1,3 +1,9 @@
+xbmc (9.04~alpha1svn19325-neuros2) intrepid; urgency=low
+
+  * Change some keymappings
+
+ --  <nerochiaro@neurostechnology.com>  Fri, 24 Apr 2009 21:28:20 +0200
+
 xbmc (9.04~alpha1svn19325-neuros1) intrepid; urgency=low
 
   * Make auto-thumb default and shorten the config item text 

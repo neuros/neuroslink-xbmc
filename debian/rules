@@ -34,7 +34,7 @@ endif
 ifneq "$(wildcard /usr/share/misc/config.guess)" ""
 	cp -f /usr/share/misc/config.guess config.guess
 endif
-#	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --disable-vdpau --enable-avahi --disable-debug --disable-pulse --disable-xrandr SVN_REV="$(SVNVERSION)"
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --enable-avahi --disable-debug --disable-pulse --disable-xrandr SVN_REV="$(SVNVERSION)"
 
 #Architecture 
 build: build-arch

@@ -18,7 +18,8 @@ Package: xbmc
 Architecture: i386 amd64
 Depends: xbmc-common (= ${binary:Version}),
          xbmc-skin-mediastream,
-         xbmc-web-pm3 (= ${binary:Version})
+         xbmc-web-pm3 (= ${binary:Version}),
+         nvidia-180-libvdpau
 Suggests: xbmc-third-parties
 Description: The Full XBMC meta package
  XBMC is a free and open source software media player 
