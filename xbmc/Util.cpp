@@ -2444,7 +2444,7 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
   }
   else if (execute.Equals("hideapp"))
   {
-    g_application.ShowHide(false);
+    g_application.getApplicationMessenger().HideApp();
   }
   else if (execute.Equals("loadprofile") && g_settings.m_vecProfiles[0].getLockMode() == LOCK_MODE_EVERYONE)
   {
