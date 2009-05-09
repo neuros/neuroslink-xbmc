@@ -515,7 +515,10 @@ void CXBApplicationEx::ShowHide(bool show)
     {
         m_bWasFullScreenBeforeHide = g_graphicsContext.IsFullScreenRoot();
         if (m_bWasFullScreenBeforeHide) g_graphicsContext.ToggleFullScreenRoot();
-        SDL_WM_IconifyWindow();
+        // This message will basically call SDL_WM_IconifyWindow on the next message loop iteration.
+        // This is necessary to ensure xbmc is out of fullscreen entirely by the time we call it, or won't work,
+        // at least in some of the systems I tested this on.
+        g_application.getApplicationMessenger().Minimize();
     }
     else
     {
