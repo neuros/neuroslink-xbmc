@@ -410,8 +410,10 @@ case TMSG_POWERDOWN:
       g_application.Minimize();
       break;
 
-    case TMSG_HIDEAPP:
-      g_application.ShowHide(false);
+    case TMSG_EXECUTE_OS:
+#ifdef _LINUX
+      system(pMsg->strParam.c_str());
+#endif
       break;
 
     case TMSG_HTTPAPI:
@@ -740,16 +742,10 @@ void CApplicationMessenger::SwitchToFullscreen()
   SendMessage(tMsg, false);
 }
 
-void CApplicationMessenger::Minimize()
+void CApplicationMessenger::Minimize(bool wait)
 {
   ThreadMessage tMsg = {TMSG_MINIMIZE};
-  SendMessage(tMsg, false);
-}
-
-void CApplicationMessenger::HideApp()
-{
-  ThreadMessage tMsg = {TMSG_HIDEAPP};
-  SendMessage(tMsg, false);
+  SendMessage(tMsg, wait);
 }
 
 void CApplicationMessenger::DoModal(CGUIDialog *pDialog, int iWindowID, const CStdString &param)
@@ -760,6 +756,14 @@ void CApplicationMessenger::DoModal(CGUIDialog *pDialog, int iWindowID, const CS
   tMsg.strParam = param;
   SendMessage(tMsg, true);
 }
+
+void CApplicationMessenger::ExecOS(const CStdString command)
+{
+  ThreadMessage tMsg = {TMSG_EXECUTE_OS};
+  tMsg.strParam = command;
+  SendMessage(tMsg, false);
+}
+
 
 void CApplicationMessenger::Show(CGUIDialog *pDialog)
 {

@@ -29,6 +29,7 @@ class CGUIDialog;
 #define TMSG_WRITE_SCRIPT_OUTPUT  101
 #define TMSG_EXECUTE_SCRIPT       102
 #define TMSG_EXECUTE_BUILT_IN     103
+#define TMSG_EXECUTE_OS           104
 
 #define TMSG_MEDIA_PLAY           200
 #define TMSG_MEDIA_STOP           201
@@ -54,7 +55,6 @@ class CGUIDialog;
 #define TMSG_RESTARTAPP           307
 #define TMSG_SWITCHTOFULLSCREEN   308
 #define TMSG_MINIMIZE             309
-#define TMSG_HIDEAPP              310
 
 #define TMSG_HTTPAPI              400
 
@@ -113,8 +113,8 @@ public:
   void RestartApp();
   void Reset();
   void SwitchToFullscreen(); //
-  void Minimize();
-  void HideApp();
+  void Minimize(bool wait = false);
+  void ExecOS(const CStdString command);
 
   CStdString GetResponse();
   int SetResponse(CStdString response);

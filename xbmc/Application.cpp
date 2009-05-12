@@ -310,7 +310,7 @@ CApplication::CApplication(void) : m_ctrDpad(220, 220), m_itemCurrentFile(new CF
   //true while we in IsPaused mode! Workaround for OnPaused, which must be add. after v2.0
   m_bIsPaused = false;
 
-  m_bWasFullScreenBeforeHide = false;
+  m_bWasFullScreenBeforeMinimize = false;
 
   /* for now allways keep this around */
 #ifdef HAS_KARAOKE
@@ -5495,13 +5495,20 @@ bool CApplication::SwitchToFullScreen()
   return false;
 }
 
-bool CApplication::Minimize()
+void CApplication::Minimize(bool minimize)
 {
+  if (minimize)
+  {
+    m_bWasFullScreenBeforeMinimize = g_graphicsContext.IsFullScreenRoot();
+    if (m_bWasFullScreenBeforeMinimize) g_graphicsContext.SetFullScreenRoot(false);
 #ifdef HAS_SDL
-  return (SDL_WM_IconifyWindow() != 0);
-#else
-  return false;
+    SDL_WM_IconifyWindow();
 #endif
+  }
+  else
+  {
+    if (m_bWasFullScreenBeforeMinimize) g_graphicsContext.SetFullScreenRoot(true);
+  }
 }
 
 EPLAYERCORES CApplication::GetCurrentPlayer()
@@ -5734,7 +5741,6 @@ bool CApplication::AlwaysProcess(const CAction& action)
         || builtInFunction.Equals("reboot")
         || builtInFunction.Equals("restart")
         || builtInFunction.Equals("restartapp")
-        || builtInFunction.Equals("hideapp")
         || builtInFunction.Equals("suspend")
         || builtInFunction.Equals("hibernate")
         || builtInFunction.Equals("quit")

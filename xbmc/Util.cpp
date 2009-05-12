@@ -2286,7 +2286,6 @@ const BUILT_IN commands[] = {
   { "Suspend",                    false,  "Suspends the system" },
   { "RestartApp",                 false,  "Restart XBMC" },
   { "Minimize",                   false,  "Minimize XBMC" },
-  { "HideApp",                    false,  "Minimize and Hide XBMC" },
   { "Credits",                    false,  "Run XBMCs Credits" },
   { "Reset",                      false,  "Reset the xbox (warm reboot)" },
   { "Mastermode",                 false,  "Control master mode" },
@@ -2442,10 +2441,6 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
   {
     g_application.getApplicationMessenger().Minimize();
   }
-  else if (execute.Equals("hideapp"))
-  {
-    g_application.getApplicationMessenger().HideApp();
-  }
   else if (execute.Equals("loadprofile") && g_settings.m_vecProfiles[0].getLockMode() == LOCK_MODE_EVERYONE)
   {
     for (unsigned int i=0;i<g_settings.m_vecProfiles.size();++i )
@@ -2579,8 +2574,8 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
 #if defined(_LINUX) && !defined(__APPLE__)
   else if (execute.Equals("system.exec"))
   {
-    g_application.ShowHide(false);
-    system(strParameterCaseIntact.c_str());
+    g_application.getApplicationMessenger().Minimize(true);
+    g_application.getApplicationMessenger().ExecOS(strParameterCaseIntact);
   }
 #elif defined(_WIN32PC)
   else if (execute.Equals("system.exec"))

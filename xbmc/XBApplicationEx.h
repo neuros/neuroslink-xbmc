@@ -100,8 +100,6 @@ public:
   bool ProcessLinuxShortcuts(SDL_Event &event);
   bool ProcessOSXShortcuts(SDL_Event &event);
 
-  void ShowHide(bool show);
-  bool m_bWasFullScreenBeforeHide;
 #endif
 
 public:
