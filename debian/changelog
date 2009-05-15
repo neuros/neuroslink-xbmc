@@ -1,3 +1,15 @@
+xbmc (9.04~alpha1svn19325-neuros5) intrepid; urgency=low
+
+  * Allow launching apps without blocking xbmc
+
+ --  <nerochiaro@nerobox>  Fri, 15 May 2009 13:48:03 +0200
+
+xbmc (9.04~alpha1svn19325-neuros4) intrepid; urgency=low
+
+  * Further fixes for minimize and launch apps
+
+ --  <nerochiaro@nerobox>  Tue, 12 May 2009 20:16:23 +0200
+
 xbmc (9.04~alpha1svn19325-neuros3) intrepid; urgency=low
 
   * Try to fix the issues with minimize to desktop
