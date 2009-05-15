@@ -412,7 +412,9 @@ case TMSG_POWERDOWN:
 
     case TMSG_EXECUTE_OS:
 #ifdef _LINUX
-      system(pMsg->strParam.c_str());
+      CUtil::RunCommandLine(pMsg->strParam.c_str(), (pMsg->dwParam1 == 1));
+#elif defined(_WIN32PC)
+      CWIN32Util::XBMCShellExecute(strParameterCaseIntact, (pMsg->dwParam1 == 1));
 #endif
       break;
 
@@ -757,10 +759,11 @@ void CApplicationMessenger::DoModal(CGUIDialog *pDialog, int iWindowID, const CS
   SendMessage(tMsg, true);
 }
 
-void CApplicationMessenger::ExecOS(const CStdString command)
+void CApplicationMessenger::ExecOS(const CStdString command, bool waitExit)
 {
   ThreadMessage tMsg = {TMSG_EXECUTE_OS};
   tMsg.strParam = command;
+  tMsg.dwParam1 = (DWORD)waitExit;
   SendMessage(tMsg, false);
 }
 

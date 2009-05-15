@@ -114,7 +114,7 @@ public:
   void Reset();
   void SwitchToFullscreen(); //
   void Minimize(bool wait = false);
-  void ExecOS(const CStdString command);
+  void ExecOS(const CStdString command, bool waitExit = false);
 
   CStdString GetResponse();
   int SetResponse(CStdString response);
